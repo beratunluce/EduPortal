@@ -13,7 +13,7 @@ const pageRoute = require("./routes/pageRoute");
 const courseRoute = require("./routes/courseRoute");
 const categoryRoute = require("./routes/categoryRoute");
 const userRoute = require("./routes/userRoute");
-
+const port = process.env.PORT || 5000;
 //Connect DB
 mongoose.set("strictQuery", true);
 mongoose
@@ -66,7 +66,6 @@ app.use("/courses", courseRoute);
 app.use("/categories", categoryRoute);
 app.use("/users", userRoute);
 
-const port = process.env.PORT || 5000;
 app.listen(port, () => {
 	console.log(`App started on ${port}`);
 });
