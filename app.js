@@ -16,13 +16,9 @@ const userRoute = require("./routes/userRoute");
 const port = process.env.PORT || 5000;
 //Connect DB
 mongoose.set("strictQuery", true);
-mongoose
-	.connect(
-		"mongodb+srv://berat:mfN2ubDPbbb9VHP0@cluster0.8pevnf2.mongodb.net/?retryWrites=true&w=majority"
-	)
-	.then(() => {
-		console.log("DB Connected Successfully");
-	});
+mongoose.connect(process.env.MONGO_CLIENT).then(() => {
+	console.log("DB Connected Successfully");
+});
 
 ///Template Engine
 
@@ -36,11 +32,11 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({extended: true})); // for parsing application/x-www-form-urlencoded
 app.use(
 	session({
-		secret: "horoz_gang",
+		secret: process.env.SESSION_SECRET,
 		resave: false,
 		saveUninitialized: true,
 		store: MongoStore.create({
-			mongoUrl: "mongodb://localhost/smartedu-db",
+			mongoUrl: "process.env.MONGO_CLIENT",
 		}),
 	})
 );
